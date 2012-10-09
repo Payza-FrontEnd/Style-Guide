@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Payza Style Guide by Payza-FrontEnd</title>
+    <title>Payza | Front-end Coding Standards &amp; Best Practices</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -18,19 +18,211 @@
         <h1>Payza Style Guide</h1>
         <p>Style used at Payza</p>
 
-        <p class="view"><a href="https://github.com/Payza-FrontEnd/Style-Guide">View the Project on GitHub <small>Payza-FrontEnd/Style-Guide</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/Payza-FrontEnd/Style-Guide/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/Payza-FrontEnd/Style-Guide/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/Payza-FrontEnd/Style-Guide">View On <strong>GitHub</strong></a></li>
-        </ul>
+        <p class="view"><a href="https://github.com/Payza-FrontEnd/Style-Guide">View the Project on GitHub</a></p>
       </header>
       <section>
-        <h3>Payza Style Guide</h3>
+        <article id="overview">
+          <div class="content">
+            <h1>Overview</h1>
+            <p>This document contains guidelines and coding standards for web applications built by the Payza UI Development Team.</p>
+            
+            <h2>Goal</h2>
+            <ul>
+              <li>Separate presentation, content, behavior</li>
+              <li>Semantic, well-formed, valid mark-up</li>
+              <li>Enhance user experience (using javascript)</li>
+            </ul>
+          </div>
+        </article>
+    
+        <!-- CSS Article Start -->
+        <article id="css">
+          <div class="content">
+            <section>
+              <hgroup>
+                <h1>CSS</h1>
+                <h2><a id="css_general_practices">General Practices</a></h2>
+              </hgroup>
+              <ul>
+                <li>Use external CSS. It is forbidden to use CSS inline of HTML tags and CSS embedded in HTML.</li>
+                <li>Avoid shorthand if it's hard to read. <em>Example:</em> <code>font</code>, <code>background</code>, <code>list-style</code>, etc.</li>
+                <li>Always use semi-colon (<code>;</code>) at the end of the each property even if there's only one property declared.</li>
+                <li>Always use lowercase when creating selectors (HTML tags, CLASS, ID) or adding a value to a color property (hex, rgba)</li>
+                <li>Use <code>class</code> for styling; <code>id</code>s are reserved for javascript.</li>
+                <li>Sprite-based selectors must be grouped and organized alphabetically. <em>Example:</em> When using icon flags to represent a country or currency.</li>
+                <li>Readability should be taken priority over compression.</li>
+                <li><a rel="external" href="https://developer.mozilla.org/en/Writing_Efficient_CSS">Write efficient CSS</a></li>
+                <li>Remember <a rel="external" href="http://www.htmldog.com/guides/cssadvanced/specificity/">CSS Specificity</a> when creating or trying to overwrite a property. Make sure that the cascading nature of CSS is understood clearly.</li>
+                <li>Selectors are case-sensitive.</li>
+                <li>Multiple classes can be assigned to a single element.</li>
+              </ul>
+            </section>
+            
+            <section>
+              <h3><a id="css_syntax">Syntax</a></h3>
+              <h4>Default format</h4>
+              <p>The default format when declaring CSS rules is as follows: selector &mdash; space &mdash; opening curly brace <code>{</code> &mdash; CSS property &mdash; colon <code>:</code> &mdash; space &mdash; value &mdash; semi-colon <code>;</code> &mdash; closing curly brace <code>}</code>.</p>
+              
+                <h5>Single Line Declaration</h5>
+                <p>Single line declaration can only be used when there's only one property declared.</p>
+                <pre><code>selector {property: value;}</code></pre>                
+              <h5>Multi-line Declaration</h5>
+              <p>Each property-value pair should be on a single line, similar for multiple selectors. Group selectors alphabetically, starting with HTML elements, <code>.classes</code> and lastly <code>#id</code>s. Only use the <code>Tab</code> key for indentation. A tab is equal to 2 spaces.</p>
+              <pre><code>p, .class, #id {
+  property: value; 
+  property: value;}</code></pre>
+            </section>
+            
+            <section>
+              <h3><a id="css_shorthand_independent">Shorthand vs. Independent Declaration</a></h3>
+              <p>Usage of shorthand properties is not permitted except:</p>
+              <ul>
+                <li>When all 4 sides of a property is set to the same value <sup><small>1</small></sup></li>
+                <li>When setting the background image <sup><small>2</small></sup></li>
+              </ul>
+              
+              <pre><code>ul {
+  <strong>background: url(img/background.png) no-repeat top left;</strong> <sup>2</sup>
+  <strong>margin: 10px;</strong>} <sup>1</sup></code></pre>
+            </section>
+            
+            <section>
+              <h3><a id="css_order">The Order of Properties</a></h3>
+              <p>CSS properties must be ordered alphabetically unless otherwise required for overwrite.</p>
+              <pre><code>p {
+  background-color: #ccc; 
+  color: #000; 
+  font-size: 1.3em;}</code></pre>
+              
+              <p>As much as possible, avoid shorthand. Only use shorthand if it's not hard to read/understand <sup><small>1</small></sup> or if the value of all 4 sides are the same <sup><small>2</small></sup>. Do not use shorthand for <code>font</code>, <code>list-style</code>, <code>outline</code> properties.</p>
+              <pre><code>p {
+  background: #ccc; 
+  <strong>border: 1px solid #000;</strong> <sup>1</sup>
+  color: #000; 
+  font-size: 1.3em;
+  <strong>margin: 10px;</strong>}<sup>2</sup></code></pre>
+              
+              <p>If any of the individual side requires a different value, use independent declaration.</p>
+              <pre><code>p {
+  background: #ccc; 
+  color: #000; 
+  font-size: 1.3em;
+  <strong>margin-top: 10px; margin-right: 20px;</strong>}</code></pre>
+              
+              <p>If a shorthand property is used, separate the independent properties set on a single line.</p>
+              <pre><code>p {
+  background: #ccc; 
+  color: #000; 
+  <strong>margin: 0;
+  margin-top: 10px; margin-right: 20px;</strong>}</code></pre>
+              
+              <h4>Handling Vendor-specific Properties using Browser Prefixes</h4>
+              <p>The rule of thumb is that CSS properties be grouped accordingly and organized alphabetically. That being said, CSS2 properties must be separated from CSS3 properties for efficiency. CSS3 properties that require vendor-specific prefixes must be written starting with Mozilla Firefox (<code>-moz-</code>), Safari/Webkit (<code>-webkit-</code>), Opera (<code>-o-</code>), IE (<code>-ms-</code>) and the W3C Recommendation last.</p>
+              <pre><code>p {
+  color: #000; 
+  background: #ccc; 
+  font-size: 1.3em;
+  <strong>/* CSS3 */
+  -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px;
+  -moz-box-shadow: 10px 10px 5px #888; -webkit-box-shadow: 10px 10px 5px #888; box-shadow: 10px 10px 5px #888;</strong>}</code></pre>                        
+            </section>
+            
+            <section>
+              <h3><a id="css_naming">Naming Selectors</a></h3>
+              <p>A key point to remember is to ask the question <em>"What is the element for?"</em>. It is preferrable to choose names based on the functionality and not the appearance. Use names that are descriptive and intuitive. Avoid unnecessary long names and abbreviations. Always write in full English descriptions.</p> 
+              <pre><code>.container { ... } 
+---
+.note { ... } <strong>not</strong> .blue-text { ... }
+---
+.article-title { ... } <strong>not</strong> .news-article-main-title { ... }
+---
+.first-name { ... } <strong>not</strong> .f-name { ... }</code></pre>
+              
+              <p>A class <code>.external-link</code> is a more appropriate name than <code>.blue-link</code> for outbound links because when the visual style changes, it still makes sense.</p>
+              <pre><code>.external-link {color: #c00; /* Red */}
+--
+.blue-link {color: #369; /* Blue */}</code></pre>
+              
+              <h4>Distinction between CLASSes and IDs</h4>
+              <p>Here are some key points to remember:</p>
+              <ul>
+                <li>Avoid names that are very similar.</li>
+                <li>Only give an element ID if it is unique.</li>
+                <li>Must be lowercase</li>
+              </ul>
+              <pre><code>.notification { ... }
+#notification_id { ... }                
+--- <strong>not</strong> ---                
+.notification { ... }
+#notification { ... }</code></pre>
+            </section>
+            
+            <section>
+              <h3><a id="css_colors">Colors</a></h3>
+              <p>Color values are written in hexadecimal or rgba format in lowercase. The usage of color names (aqua, green, red, etc.) in plain text is not permitted, except for <em>transparent</em>. If an element doesn't call transparency use the hexadecimal format. Otherwise, use the rgba format.</p>
+              <pre><code>p {color: #444;}
+.note {border-color: rgba(0, 0, 0, 0.5);}</code></pre>
+            </section>
+            
+            <section>
+              <h3><a id="css_comment">Commenting</a></h3>
+              <p>Multi-line comments isn't necessary because CSS is straightforward to read and understand when organized properly. It's not necessary to use commenting more than described in this guideline. Use comments <code>/* */</code> when:</p>
+              <ul>
+                <li>Grouping blocks of selectors, on a single line <sup><small>1</small></sup></li>
+                <li>Grouping properties or separating CSS2 properties from CSS3 properties, on a single line <sup><small>2</small></sup></li>
+                <li>Commenting a trick, after the closing semi-colon before the closing curly braces <sup><small>3</small></sup></li>
+              </ul>
+              <pre><code>html {overflow-y: scroll; /* Vertical Scrollbar */<sup>3</sup>}
+/** Layout **/ <sup>1</sup>
+header { ... }                
+.container { ... }
+footer { ... }                
+a {
+  background-color: #369;
+  color: #fff;
+  /* CSS3 */ <sup>2</sup>
+  -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;}</code></pre>
+            </section>
+            
+            <section>
+              <h3><a id="css_url">URLs</a></h3>
+              <p>Quotes (single / double) are not required when including a URL, for instance, background image.</p>
+              <pre><code>.icon {background-image: url(img/sprite.png);}</code></pre>
+            </section>
+            
+            <section>
+              <h3><a id="css_fonts">Fonts</a></h3>
+              <p>It is recommended to quote font family names that contain white space, digits, or punctuation characters other than hyphens and font family names that are included using the <code>@font-face</code> rule. Font family names may be case-sensitive on some operating systems.</p>
+              <pre><code><strong>@font-face {
+  font-family: "OpenSansBold";</strong>
+  font-style: normal;
+  src: OpenSans-Bold-webfont.eot;
+...
+h1 {font-family: <strong>"OpenSansBold"</strong>, <strong>"Trebuchet MS"</strong>, Helvetica, sans-serif;}</code></pre>
+            </section>
+            
+            <section>
+              <h3><a id="css_hacks">Browser Hacks</a></h3>
+              <p>When all else fails, writing hacks should be the very last resort. To identify what browser is being used, at least for IE browsers, conditional statements may be used. For other browsers, an option considered is using javascript to detect the browser. The idea is to insert a <code>class</code> into the <code>html</code> of the document. The <code>class</code> value will be the CLASS selectors representing the browser version and/or type.</p>
+              <pre><code>&lt;html class="ie8"&gt;</code></pre>
+            </section>
+            
+            <section>
+              <h3><a id="css_other_things">Other Things to Consider</a></h3>
+              <ul>
+                <li>Zero-in defaults using <a rel="external" href="http://meyerweb.com/eric/tools/css/reset/">Reset</a> or <a rel="external" href="http://necolas.github.com/normalize.css/ ">Normalize</a> CSS</li>
+                <li><a rel="external" href="http://developer.yahoo.com/yui/examples/fonts/fonts-simple.html">YUI Fonts CSS</a> to normalize font size for all browsers</li>
+                <li>Clear floating elements using <a rel="external" href="http://www.webtoolkit.info/css-clearfix.html">Clearfix</a></li>
+                <li>CSS rule grouping level (default, global, block, section, page-specific)</li>
+              </ul>
+            </section>
+            
+          </div>        
+        </article>
+        <!-- CSS Article End -->
 
-<p>Here you will find some of the case examples of the Style used at Payza</p>
+
+
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/Payza-FrontEnd">Payza-FrontEnd</a></p>
